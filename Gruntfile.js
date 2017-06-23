@@ -24,7 +24,7 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
-  
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -443,14 +443,6 @@ module.exports = function (grunt) {
               branch: 'master'
           }
       }
-    },
-    env : {
-      options : {
-        //Shared Options Hash
-      },
-      dev : {
-        DOMAIN_URL : 'https://data-viz-v1.herokuapp.com'
-      }
     }
   });
   
@@ -477,7 +469,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'env',
     'clean:server',
     'wiredep',
     'concurrent:test',
@@ -505,7 +496,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'env',
     'newer:jshint',
     'newer:jscs',
     'test',
