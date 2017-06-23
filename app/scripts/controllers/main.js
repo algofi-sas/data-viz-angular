@@ -17,5 +17,4 @@ angular.module('myFirstAppApp')
     	{'title' : 'Karma',
     	'description' : 'Spectacular Test Runner for JavaScript.'}
     ];
-    console.log(DOMAIN_URL);
   });
