@@ -1,0 +1,119 @@
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<style type="text/css">
+	.spin-rotation {
+		animation-name: spin;
+		animation-duration: 4000ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	.loader {
+		border: 6px solid #f3f3f3;
+		-webkit-animation: spin 1s linear infinite;
+		animation: spin 1s linear infinite;
+		border-top: 6px solid #555;
+		border-radius: 50%;
+		width: 60px;
+		height: 60px;
+		margin-left: 20%;
+		display: inline-block;
+	}
+
+	@keyframes spin {
+		from {transform: rotate(0deg);}
+		to {transform: rotate(360deg);}
+	}
+</style>
+<div ng-app="quandlTimeSeriesApp" ng-controller="quandlCtrl">
+	<div class="row">
+		<div
+			style="background-color: rgba(128, 128, 128, 0.5); width: 100%; height: 100%; margin: 0; top: 0; left: 0; position: absolute; z-index: 1;"
+			ng-show="loading">
+			<div
+				style="position: absolute; top: 45%; left: 45%; font-size: xx-large;">
+				<div class="loader"></div>
+				<span>Loading...</span>
+			</div>
+		</div>
+		<h1 class="text-center">Quandl Time Series API</h1>
+		<div class="col-md-12">
+			<form>
+				<div class="form-group col-md-2 col-md-offset-1">
+					<label>Database Code: </label>
+					<input type="text" name="databaseCode" ng-model="databaseCode" class="form-control" />
+					<label>Dataset Code: </label>
+					<input type="text" name="datasetCode" ng-model="datasetCode" class="form-control" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="block-label">Start Date: </label>
+					<input type="date" name="startDate" ng-model="startDate" class="form-control" />
+					<label class="block-label">End Date: </label>
+					<input type="date" name="endDate" ng-model="endDate" class="form-control" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="block-label">Limit: </label>
+					<input type="number" name="limit" ng-model="limit" min="0" class="form-control" />
+					<label class="block-label">Column Index:</label>
+					<input type="number" name="colIndex" ng-model="colIndex" min="-1" class="form-control" />
+				</div>
+				<div class="form-group col-md-2">
+					<label class="block-label">Order:</label>
+					<select ng-model="order" ng-options="x for x in orderOptions" class="form-control"></select>
+					<label class="block-label">Collapse:</label>
+					<select ng-model="collapse" ng-options="x for x in collapseOptions" class="form-control"></select>
+				</div>
+				<div class="form-group col-md-2">
+					<label class="block-label"> Transformation:</label>
+					<select ng-model="transformation" ng-options="x for x in transformationOptions" class="form-control"></select>
+					<label class="block-label">&nbsp;</label>
+					<div>
+						<div class="col-md-6" style="padding-right: 2px; padding-left: 0;">
+							<button ng-click="search()" class="btn btn-success btn-block">Search</button>
+						</div>
+						<div class="col-md-6" style="padding-right: 0px; padding-left: 2px;">
+							<button ng-click="clear()" class="btn btn-danger btn-block">Clear</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div ng-show="succeded" class="col-md-12">
+			<hr />
+			<h3>{{ stockName }}</h3>
+			<p>
+				<b>Newest Available Date:</b> {{ newestAvailableDate }}
+			</p>
+			<p>
+				<b>Oldest Available Date:</b> {{ oldestAvailableDate }}
+			</p>
+			<!-- <p id="request-description"></p> -->
+			<hr />
+		</div>
+		<div>
+			<table ng-show="succeded" id="myTable" class="table table-hover table-bordered text-center">
+				<thead>
+					<tr>
+						<th class="text-center">Index</th>
+						<th ng-repeat="column in requestResponse.column_names" class="text-center">
+						{{ column }}</th>
+					</tr>
+				</thead>
+				<tr ng-repeat="dataElement in requestResponse.data">
+					<td><b>{{ $index+1 }}</b></td>
+					<td ng-repeat="dataCol in dataElement track by $index">
+					{{ dataCol | formatData }}</td>
+				</tr>
+				<thead>
+					<tr>
+						<th class="text-center">Total</th>
+						<th colspan="{{requestResponse.column_names.length}}" class="text-center">
+						{{ requestResponse.data.length }}</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div style="width: 100%;" id="chartContainer" ng-show="succeded" class="col-md-12">
+		</div>
+	</div>
+</div>
