@@ -1,0 +1,6 @@
+{
+  
+  "requireCapitalizedConstructors": true,
+  "requireParenthesesAroundIIFE": true,
+  "validateQuoteMarks": "'"
+}
