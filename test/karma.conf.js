@@ -33,7 +33,9 @@ module.exports = function(config) {
       // endbower
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
+      // ChartJs
+      'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'
     ],
 
     // list of files / patterns to exclude
