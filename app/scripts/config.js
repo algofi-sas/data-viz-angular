@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',DOMAIN_URL:'https://data-viz-v1.herokuapp.com'})
+.constant('ENV', {name:'production',DOMAIN_URL:'https://data-viz-v1.herokuapp.com'})
 
 ;
