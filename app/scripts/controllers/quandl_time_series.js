@@ -25,7 +25,7 @@ angular.module('myFirstAppApp').filter('formatData', function (numberFilter) {
 	$scope.orderOptions = ['asc', 'desc'];
 	
 	// var domain = 'https://data-viz-v1.herokuapp.com';
-	// var domain = process.env.DOMAIN_URL;
+	// var domain = process.env.DOMAIN_URL;//
 	var domain = ENV.DOMAIN_URL;
 
 	var url = domain + '/dummyRequest';
