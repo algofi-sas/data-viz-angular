@@ -9,15 +9,19 @@
 
 module.exports = function (grunt) {
 
+  grunt.loadNpmTasks('grunt-build-control');
+  grunt.loadNpmTasks('grunt-ng-constant');
+  grunt.loadNpmTasks('grunt-include-source');
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
   // Automatically load required Grunt tasks
   require('jit-grunt')(grunt, {
+    ngconstant : 'grunt-ng-constant',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
-    ngconstant : 'grunt-ng-constant'
+    cdnify: 'grunt-google-cdn'
   });
 
   // Configurable paths for the application
@@ -25,9 +29,6 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
-
-  grunt.loadNpmTasks('grunt-build-control');
-  grunt.loadNpmTasks('grunt-ng-constant');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
