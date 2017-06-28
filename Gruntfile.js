@@ -540,4 +540,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy', ['buildcontrol']);
 
+  grunt.registerTask('printenv', function(){
+    console.log(process.env.DOMAIN_URL);
+  });
+
+
 };

@@ -90,7 +90,7 @@
 			<!-- <p id="request-description"></p> -->
 			<hr />
 		</div>
-		<div>
+		<div class="table-responsive">
 			<table ng-show="succeded" id="myTable" class="table table-hover table-bordered text-center">
 				<thead>
 					<tr>
@@ -100,7 +100,7 @@
 					</tr>
 				</thead>
 				<tr ng-repeat="dataElement in requestResponse.data">
-					<td><b>{{ $index+1 }}</b></td>
+					<td style="white-space: nowrap;"><b>{{ $index+1 }}</b></td>
 					<td ng-repeat="dataCol in dataElement track by $index">
 					{{ dataCol | formatData }}</td>
 				</tr>
