@@ -26,9 +26,9 @@ angular.module('myFirstAppApp').filter('formatData', function (numberFilter) {
 	
 	// var domain = 'https://data-viz-v1.herokuapp.com';
 	// var domain = process.env.DOMAIN_URL;
-	var domain = ENV.DOMAIN_URL;
+	$scope.domain = ENV.DOMAIN_URL;
 
-	var url = domain + 'services/dummyRequest';
+	var url = $scope.domain + 'services/dummyRequest';
 	var apiKey = 'DKczFdjuL_16KZVxeZKk';
 	$scope.datasetCode = 'AAPL';
 	$scope.databaseCode = 'WIKI';
