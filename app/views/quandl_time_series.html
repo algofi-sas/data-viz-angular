@@ -100,8 +100,8 @@
 					</tr>
 				</thead>
 				<tr ng-repeat="dataElement in requestResponse.data">
-					<td style="white-space: nowrap;"><b>{{ $index+1 }}</b></td>
-					<td ng-repeat="dataCol in dataElement track by $index">
+					<td><b>{{ $index+1 }}</b></td>
+					<td ng-repeat="dataCol in dataElement track by $index" style="white-space: nowrap;">
 					{{ dataCol | formatData }}</td>
 				</tr>
 				<thead>
