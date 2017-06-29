@@ -41,9 +41,16 @@ Make sure to have installed on your machine:
 
 The following code launch a script that creates your application.
 ``` sh
+$ mkdir app-name
+$ cd app-name
 $ yo angular [app-name]
 ```
 PS: The app name parameter is optional.
+
+``` sh
+$ Would you like to use Gulp (experimental) instead of Grunt? (y/N)
+```
+Make sure to select Grunt and not Gulp.
 
 You will be asked to choose the modules you want to install, just follow the instructions and add the features that fit your needs.
 
@@ -58,55 +65,19 @@ Grunt offers you the ability to reload the pages when saving any changes, so you
 
 In order to run your Jasmine tests using karma, you have to:
 
-Install the `grunt-karma` plugin
+Install the `grunt-karma` and `karma-phantomjs-launcher` plugins
 
 ```sh
 $ npm install grunt-karma --save-dev
-```
-Add the following configuration in the `Gruntfile.js`
-
-``` JavaSciprt
-grunt.initConfig({
-  // Some configurations...
-  karma: {
-    unit: {
-      configFile: 'test/karma.conf.js',
-      options: {
-        frameworks: ['jasmine'],
-        singleRun: true,
-        browsers: ['PhantomJS']
-      }
-    }
-  },
-  // Other configurations...
-});
+$ npm install karma-phantomjs-launcher --save-dev
 ```
 
-And in the end of the script - inside the `module.exports = function (grunt)` block - you have to register the newly created configuration as a task:
-
-``` JavaSciprt
-grunt.registerTask('test', [
-  'clean:server',
-  'wiredep',
-  'concurrent:test',
-  'postcss',
-  'connect:test',
-  'karma'
-]);
-```
+PS: If you want to run your tests in different browsers, make sure to install them just like PhatomJS.
 
 After this step, you should be able to run the following command to run your tests:
 
 ``` sh
 $ grunt test
-```
-
-If you have not installed karma and it's plugins, run the following script:
-
-``` sh
-$ npm install karma
-$ npm install karma-jasmine karma-phantomjs-launcher jasmine-core
-$ npm install grunt-karma
 ```
 
 ### Add a Server to your application
@@ -133,7 +104,7 @@ app.use(morgan('dev'));
 app.use(gzippo.staticGzip("" + __dirname + "/dist"));
 app.listen(process.env.PORT || 5000);
 ```
-As you can see, the `web.js` file loads the application from the `/dist` directory. In order do get this folder we should build the application using grunt:
+As you can see, the `web.js` file loads the application from the `/dist` directory. In order to get this folder we should build the application using grunt:
 
 ```sh
 $ grunt build
@@ -169,6 +140,8 @@ To always push to master run this command
 ```sh
 $ git push --set-upstream origin master
 ```
+
+PS: Make sure you have the `/dist` folder in your GitHub repo.
 
 ### Create Heroku Application
 After creating an account on Heroku and installed the Heroku CLI, open the command line in the application directory and run the following Heroku command:
@@ -266,11 +239,11 @@ Follow the steps in [this link](https://documentation.codeship.com/basic/continu
 Now you can test your CI by pushing changes to your repo.
 
 
-### Accessing `process.env.*` variables localy and on the server in Angular
+### Accessing `process.env.*` variables locally and on the server in Angular
 
 #### Installing the Plugin
 
-To acheave this part you have to install the following grunt plugin:
+This part will help you accessing the [config vars](https://devcenter.heroku.com/articles/config-vars) by Heroku and your enviroment variables locally, so to acheave this you have to install the following grunt plugin:
 
 ``` sh
 $ npm install grunt-ng-constant --save-dev
@@ -279,6 +252,19 @@ $ npm install grunt-ng-constant --save-dev
 #### Modifying the Grunt File
 
 Now you have to configure the plugin in `Gruntfile.js` as follow:
+
+Modify the `require('jit-grunt')` as follow:
+
+``` JavaScript
+require('jit-grunt')(grunt, {
+  ngconstant : 'grunt-ng-constant', //ADD THIS LINE
+  useminPrepare: 'grunt-usemin',
+  ngtemplates: 'grunt-angular-templates',
+  cdnify: 'grunt-google-cdn'
+});
+```
+
+Now in `initConfig` block add the following task:
 
 ``` JavaScript
 ngconstant: {
@@ -381,14 +367,14 @@ angular.module('config', [])
 Add the script source in the `index.html` file:
 
 ``` XML
- <!-- build:js({.tmp,app}) scripts/scripts.js -->
- <script src="scripts/app.js"></script>
- <script src="scripts/controllers/main.js"></script>
- <script src="scripts/controllers/about.js"></script>
- <script src="scripts/controllers/quandl_time_series.js"></script>
- <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/about.js"></script>
+<script src="scripts/controllers/quandl_time_series.js"></script>
+<!-- endbuild -->
 
- <script src="scripts/config.js"></script>
+<script src="scripts/config.js"></script>
 ```
 PS: Make sure to add the source outside the comment block:
 ``` XML
