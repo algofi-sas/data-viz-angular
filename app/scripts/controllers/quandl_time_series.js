@@ -23,9 +23,7 @@ angular.module('myFirstAppApp').filter('formatData', function (numberFilter) {
 	$scope.transformationOptions = ['none', 'diff', 'rdiff', 'rdiff_from', 'cumul', 'normalize'];
 
 	$scope.orderOptions = ['asc', 'desc'];
-	
-	// var domain = 'https://data-viz-v1.herokuapp.com';
-	// var domain = process.env.DOMAIN_URL;
+
 	$scope.domain = ENV.DOMAIN_URL;
 
 	var url = $scope.domain + 'services/dummyRequest';
@@ -51,13 +49,6 @@ angular.module('myFirstAppApp').filter('formatData', function (numberFilter) {
 	$scope.colIndex = -1;
 	
 	$scope.formatDate = function(date) {
-		// var monthNames = [
-		// 	'January', 'February', 'March',
-		// 	'April', 'May', 'June', 'July',
-		// 	'August', 'September', 'October',
-		// 	'November', 'December'
-		// 	];
-
 		var day = date.getDate();
 		var monthIndex = date.getMonth();
 		var year = date.getFullYear();
@@ -95,10 +86,8 @@ angular.module('myFirstAppApp').filter('formatData', function (numberFilter) {
 
 		$http.get( url + '?' + params )
 		.then(function(response){
-			/*jshint camelcase: false */
 			$scope.requestResponse = response.data.dataset;
 			$scope.stockName = response.data.dataset.name;
-//			document.getElementById('request-description').innerHTML = response.data.dataset.description;
 			$scope.newestAvailableDate = response.data.dataset.newest_available_date;
 			$scope.oldestAvailableDate = response.data.dataset.oldest_available_date;
 			$scope.succeded = true;
