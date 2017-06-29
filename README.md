@@ -266,9 +266,163 @@ Follow the steps in [this link](https://documentation.codeship.com/basic/continu
 Now you can test your CI by pushing changes to your repo.
 
 
-### Accessing `process.env.*` variables localy and online in your code
+### Accessing `process.env.*` variables localy and on the server in Angular
 
-https://mindthecode.com/how-to-use-environment-variables-in-your-angular-application/
+#### Installing the Plugin
+
+To acheave this part you have to install the following grunt plugin:
+
+``` sh
+$ npm install grunt-ng-constant --save-dev
+```
+
+#### Modifying the Grunt File
+
+Now you have to configure the plugin in `Gruntfile.js` as follow:
+
+``` JSON
+ngconstant: {
+  // Options for all targets
+  options: {
+    space: '  ',
+    wrap: '"use strict";\n\n {\%= __ngModule %}',
+    name: 'config',
+  },
+  // Environment targets
+  development: {
+    options: {
+      dest: '<%= yeoman.app %>/scripts/config.js'
+    },
+    constants: {
+      ENV: {
+        name: 'development',
+        DOMAIN_URL: process.env.DOMAIN_URL
+      }
+    }
+  },
+  production: {
+    options: {
+      dest: '<%= yeoman.dist %>/scripts/config.js'
+    },
+    constants: {
+      ENV: {
+        name: 'production',
+        DOMAIN_URL: process.env.DOMAIN_URL
+      }
+    }
+  }
+}
+```
+
+The `ENV` object will be injected into the application and will be used just like the `$scope` object. So for example in this case, we are setting the `ENV.DOMAIN_URL` variable to the `process.env.DOMAIN_URL` value.
+
+After adding the configuration, we should modify the registered tasks:
+
+Adding `'ngconstant:development'` after the `'clean:server',` in the serve task
+
+``` JSON
+grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
+  if (target === 'dist') {
+    return grunt.task.run(['build', 'connect:dist:keepalive']);
+  }
+
+  grunt.task.run([
+    'clean:server',
+    'ngconstant:development',	// ADD THIS LINE
+    'wiredep',
+    'concurrent:server',
+    'postcss:server',
+    'connect:livereload',
+    'watch'
+  ]);
+});
+```
+
+I also added this line in the `build` task:
+
+``` JSON
+grunt.registerTask('build', [
+  'clean:dist',
+  'ngconstant:production',	// ADD THIS LINE
+  'wiredep',
+  'useminPrepare',
+  'concurrent:dist',
+  'postcss',
+  'ngtemplates',
+  'concat',
+  'ngAnnotate',
+  'copy:dist',
+  'cdnify',
+  'cssmin',
+  'uglify',
+  'filerev',
+  'usemin',
+  'htmlmin'
+]);
+```
+
+#### Generating the `config.js` file
+
+When Grunt runs the task, a config file is generated, with your defined constants:
+
+``` JavaScript
+"use strict";
+
+angular.module('config', [])
+.constant('ENV', 
+	{
+		name:'development',
+		DOMAIN_URL:'https://data-viz-v1.herokuapp.com/'
+	}
+);
+```
+#### Using the config file in your Angular App
+
+Add the script source in the `index.html` file:
+
+``` XML
+ <!-- build:js({.tmp,app}) scripts/scripts.js -->
+ <script src="scripts/app.js"></script>
+ <script src="scripts/controllers/main.js"></script>
+ <script src="scripts/controllers/about.js"></script>
+ <script src="scripts/controllers/quandl_time_series.js"></script>
+ <!-- endbuild -->
+
+ <script src="scripts/config.js"></script>
+```
+PS: Make sure to add the source outside the comment block:
+``` XML
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+...
+<!-- endbuild -->
+<script src="scripts/config.js"></script>
+```
+
+Next, you have to inject it into the `scripts/app.js` file:
+
+``` JavaScript
+'use strict';
+
+angular
+  .module('myFirstAppApp', [
+    'ngTouch',	// Other parameters
+    'config'	// ADD THIS LINE
+  ])
+  .config(function ($routeProvider) {
+	//Some Config...
+  });
+```
+
+Now in your controller you can the `ENV` object like the `$scope` or `$http` objects:
+
+``` JavaScript
+angular.module('myFirstAppApp')
+    .controller('MainCtrl', function ($scope, ENV) { // ENV is injected
+        $scope.DOMAIN_URL = ENV.DOMAIN_URL;
+    });
+```
+
+When running/bulding your app, make sure to have your enviroment variable and double check it in the `scripts/config.js` file. [*(source)*](https://mindthecode.com/how-to-use-environment-variables-in-your-angular-application/)
 
 [//]: # (Links)
 
@@ -278,9 +432,7 @@ https://mindthecode.com/how-to-use-environment-variables-in-your-angular-applica
    [Karma 1.0]: <https://karma-runner.github.io/1.0/index.html>
    [Heroku]: <https://www.heroku.com>
    [Codeship]: <https://codeship.com>
-   [Maven]: <https://maven.apache.org>
    [JavaScript]: <https://developer.mozilla.org/fr/docs/Web/JavaScript>
-   [Java 8]: <https://www.java.com/fr/download/faq/java8.xml>
    [Yeoman]: <http://yeoman.io/>
    [Grunt]: <https://gruntjs.com/>
    [Morgan]: <https://www.npmjs.com/package/morgan>
@@ -291,20 +443,3 @@ https://mindthecode.com/how-to-use-environment-variables-in-your-angular-applica
 
 
 ----------
-
-# my-first-app
-
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.16.0.
-
-## Build & development
-
-Run `grunt` for building and `grunt serve` for preview.
-
-## Testing
-
-Running `grunt test` will run the unit tests with karma.
-
-## Deploying to Heroku
-
-[Deploy Angular App to Heroku](http://awaxman11.github.io/blog/2014/07/13/how-to-create-an-angular-app-using-yeoman-and-deploy-it-to-heroku/)
