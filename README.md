@@ -280,7 +280,7 @@ $ npm install grunt-ng-constant --save-dev
 
 Now you have to configure the plugin in `Gruntfile.js` as follow:
 
-``` JSON
+``` JavaScript
 ngconstant: {
   // Options for all targets
   options: {
@@ -320,7 +320,7 @@ After adding the configuration, we should modify the registered tasks:
 
 Adding `'ngconstant:development'` after the `'clean:server',` in the serve task
 
-``` JSON
+``` JavaScript
 grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
   if (target === 'dist') {
     return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -340,7 +340,7 @@ grunt.registerTask('serve', 'Compile then start a connect web server', function 
 
 I also added this line in the `build` task:
 
-``` JSON
+``` JavaScript
 grunt.registerTask('build', [
   'clean:dist',
   'ngconstant:production',	// ADD THIS LINE
