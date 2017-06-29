@@ -440,6 +440,3 @@ When running/bulding your app, make sure to have your enviroment variable and do
    [Gzippo]: <https://www.npmjs.com/package/gzippo>
    [AngularJS generator]: <https://github.com/yeoman/generator-angular>
    [Node.js]: <https://nodejs.org/en/>
-
-
-----------
