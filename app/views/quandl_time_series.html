@@ -90,8 +90,12 @@
 			<!-- <p id="request-description"></p> -->
 			<hr />
 		</div>
-		<div class="col-md-12 table-responsive">
-			<table ng-show="succeded" id="myTable" class="table table-hover table-bordered text-center">
+		<div style="width: 100%;" id="chartContainer" ng-show="succeded" class="col-md-12">
+		</div>
+		<div class="col-md-12 table-responsive" ng-show="succeded">
+			<hr />
+			<h2 class="text-center">Table Results</h2>
+			<table id="myTable" class="table table-hover table-bordered text-center">
 				<thead>
 					<tr>
 						<th class="text-center">Index</th>
@@ -112,8 +116,6 @@
 					</tr>
 				</thead>
 			</table>
-		</div>
-		<div style="width: 100%;" id="chartContainer" ng-show="succeded" class="col-md-12">
 		</div>
 	</div>
 </div>
