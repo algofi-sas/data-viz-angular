@@ -26,8 +26,6 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
 
   $scope.domain = ENV.DOMAIN_URL;
 
-  document.title = $route.current.title;
-
   var url = $scope.domain + 'services/dummyRequest';
   var apiKey = 'DKczFdjuL_16KZVxeZKk';
   $scope.datasetCode = 'AAPL';
