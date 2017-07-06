@@ -16,7 +16,7 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
       }
     }
   };
-}).controller('quandlCtrl', function($scope, $http, ENV) {
+}).controller('quandlCtrl', function($scope, $http, ENV, $route) {
 
   $scope.collapseOptions = ['none', 'daily', 'weekly', 'monthly', 'quarterly', 'annual'];
 
@@ -25,6 +25,8 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
   $scope.orderOptions = ['asc', 'desc'];
 
   $scope.domain = ENV.DOMAIN_URL;
+
+  document.title = $route.current.title;
 
   var url = $scope.domain + 'services/dummyRequest';
   var apiKey = 'DKczFdjuL_16KZVxeZKk';
@@ -171,5 +173,13 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
       }
     });
     myChart.update();
+
+ //    ctx.onclick = function(evt){
+	//     var activePoints = myChart.getElementsAtEvent(evt);
+	//     console.log(activePoints);
+	//     console.log(evt);
+	//     // => activePoints is an array of points on the canvas that are at the same position as the click event.
+	// };
+
   };
 });

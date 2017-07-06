@@ -8,7 +8,8 @@
  *
  * Main module of the application.
  */
-angular
+
+var myApp = angular
   .module('myFirstAppApp', [
     'ngAnimate',
     'ngCookies',
@@ -17,23 +18,34 @@ angular
     'ngSanitize',
     'ngTouch',
     'config'
-  ])
+  ]);
+
+myApp.run(['$rootScope', '$route', function($rootScope, $route) {
+    $rootScope.$on('$routeChangeSuccess', function() {
+        document.title = $route.current.title;
+    });
+}]);
+
+myApp
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        title: 'Home'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
-        controllerAs: 'about'
+        controllerAs: 'about',
+        title: 'About'
       })
       .when('/quandl_time_series', {
         templateUrl: 'views/quandl_time_series.html',
         controller: 'quandlCtrl',
-        controllerAs: 'quandl'
+        controllerAs: 'quandl',
+        title: 'Quandl Time Series'
       })
       .otherwise({
         redirectTo: '/'
