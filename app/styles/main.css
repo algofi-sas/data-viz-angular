@@ -80,4 +80,10 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+
+  #cancel-btn-div #search-btn-div{
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+
 }

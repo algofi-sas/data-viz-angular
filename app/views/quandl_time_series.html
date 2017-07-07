@@ -20,10 +20,43 @@
 		display: inline-block;
 	}
 
+	#search-btn-div {
+		padding-right: 2px;
+		padding-left: 0px;
+	}
+
+	#cancel-btn-div {
+		padding-right: 0px;
+		padding-left: 2px;
+	}
+
 	@keyframes spin {
 		from {transform: rotate(0deg);}
 		to {transform: rotate(360deg);}
 	}
+	/* Responsive: Portrait tablets and up */
+	@media screen and (max-width: 991px) {
+
+		#cancel-btn-div, #search-btn-div {
+			padding-right: 0px;
+			padding-left: 0px;
+		}
+
+		#cancel-btn-div {
+			padding-top: 10px;
+		}
+
+	}
+
+	.nav-tabs a{
+		cursor: pointer;
+	}
+
+/*	.nav-tabs > li > a:hover {
+		background-color: #337ab7;
+		color: #fff;
+	}*/
+
 </style>
 <div ng-app="quandlTimeSeriesApp" ng-controller="quandlCtrl">
 	<div class="row">
@@ -54,7 +87,7 @@
 				<div class="form-group col-md-2">
 					<label class="block-label">Limit: </label>
 					<input type="number" name="limit" ng-model="limit" min="0" class="form-control" />
-					<label class="block-label">Column Index:</label>
+					<label class="block-label">Column Index:</label>	
 					<input type="number" name="colIndex" ng-model="colIndex" min="-1" class="form-control" />
 				</div>
 				<div class="form-group col-md-2">
@@ -68,10 +101,10 @@
 					<select ng-model="transformation" ng-options="x for x in transformationOptions" class="form-control"></select>
 					<label class="block-label">&nbsp;</label>
 					<div>
-						<div class="col-md-6" style="padding-right: 2px; padding-left: 0;">
+						<div class="col-md-6" id="search-btn-div">
 							<button ng-click="search()" class="btn btn-success btn-block">Search</button>
 						</div>
-						<div class="col-md-6" style="padding-right: 0px; padding-left: 2px;">
+						<div class="col-md-6" id="cancel-btn-div">
 							<button ng-click="clear()" class="btn btn-danger btn-block">Clear</button>
 						</div>
 					</div>
@@ -90,9 +123,24 @@
 			<!-- <p id="request-description"></p> -->
 			<hr />
 		</div>
-		<div style="width: 100%;" id="chartContainer" ng-show="succeded" class="col-md-12">
-		</div>
-		<div class="col-md-12 table-responsive" ng-show="succeded">
+		<!-- <div style="width: 100%;" id="chartContainer" ng-show="succeded" class="col-md-12"></div> -->
+		<div class="col-md-12 table-responsive" ng-show="succeded" id="table-wrapper">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" data-target="#values">Unadjusted Values</a></li>
+				<li><a data-toggle="tab" data-target="#adjustedValues">Adjusted Values</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div id="values" class="tab-pane fade in active">
+					<h3>Unadjusted Values</h3>
+					<div style="width: 100%;" id="chartContainer" ng-show="succeded" class="col-md-12"></div>
+				</div>
+				<div id="adjustedValues" class="tab-pane fade">
+					<h3>Adjusted Values</h3>
+					<div style="width: 100%;" id="chartContainerAdj" ng-show="succeded" class="col-md-12"></div>
+				</div>
+			</div>
+			<br />
 			<hr />
 			<h2 class="text-center">Table Results</h2>
 			<table id="myTable" class="table table-hover table-bordered text-center">

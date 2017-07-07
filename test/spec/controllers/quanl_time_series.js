@@ -40,6 +40,10 @@ describe('Controller: quandlCtrl', function() {
 			scope.chartContainer.id = "chartContainer";
 			scope.chartContainer.innerHTML = '<div style="width: 100%;" id="chartContainer" ng-show="succeded" class=""><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe><canvas width="1631" height="815" id="myChart" style="display: block; width: 1631px; height: 815px;"></canvas></div>';
 			document.body.appendChild(scope.chartContainer);
+
+			scope.chartContainerAdj = document.createElement("div");
+			scope.chartContainerAdj.id = "chartContainerAdj";
+			document.body.appendChild(scope.chartContainerAdj);
 			//Applying the clear function
 			scope.clear();
 			//Testing the result of the function

@@ -65,6 +65,9 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
     $scope.succeded = false;
     $scope.chartContainer = document.getElementById('chartContainer');
     $scope.chartContainer.innerHTML = '';
+    $scope.chartContainerAdj = document.getElementById('chartContainerAdj');
+    $scope.chartContainerAdj.innerHTML = '';
+
     if ($scope.requestResponse !== undefined) {
       if ($scope.requestResponse.data !== undefined) {
         $scope.requestResponse.data.length = 0;
@@ -99,6 +102,11 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
         var lowValues = [];
         var closeValues = [];
 
+        var openValuesAdj = [];
+        var highValuesAdj = [];
+        var lowValuesAdj = [];
+        var closeValuesAdj = [];
+
         for (var i = 0; i < $scope.requestResponse.data.length; i++) {
           labels.push($scope.requestResponse.data[i][0]);
           openValues.push($scope.requestResponse.data[i][1]);
@@ -107,7 +115,16 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
           closeValues.push($scope.requestResponse.data[i][4]);
         }
 
+        for (var i = 0; i < $scope.requestResponse.data.length; i++) {
+          openValuesAdj.push($scope.requestResponse.data[i][8]);
+          highValuesAdj.push($scope.requestResponse.data[i][9]);
+          lowValuesAdj.push($scope.requestResponse.data[i][10]);
+          closeValuesAdj.push($scope.requestResponse.data[i][11]);
+        }
+
         $scope.drawChart(labels, openValues, highValues, lowValues, closeValues);
+
+        $scope.drawChartAdj(labels, openValuesAdj, highValuesAdj, lowValuesAdj, closeValuesAdj);
       });
 
   };
@@ -149,6 +166,75 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
           fill: false
         }, {
           label: 'Close Values',
+          data: closeValues,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          fill: false
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: $scope.datasetCode + ' Stock Price Variation From "' + $scope.formatDate($scope.startDate) + '" To "' + $scope.formatDate($scope.endDate) + '" - Collapse: ' + $scope.capitalizeFirstLetter($scope.collapse)
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: false
+            }
+          }]
+        }
+      }
+    });
+    myChart.update();
+
+ //    ctx.onclick = function(evt){
+	//     var activePoints = myChart.getElementsAtEvent(evt);
+	//     console.log(activePoints);
+	//     console.log(evt);
+	//     // => activePoints is an array of points on the canvas that are at the same position as the click event.
+	// };
+
+  };
+
+  $scope.drawChartAdj = function(labels, openValues, highValues, lowValues, closeValues) {
+    $scope.chartContainer = document.getElementById('chartContainerAdj');
+
+    var ctx = document.createElement('canvas');
+    ctx.width = 500;
+    ctx.height = 250;
+    ctx.id = 'myChart';
+
+    $scope.chartContainer.appendChild(ctx);
+
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Adj. Open Values',
+          data: openValues,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1,
+          fill: false
+        }, {
+          label: 'Adj. High Values',
+          data: highValues,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          fill: false
+        }, {
+          label: 'Adj. Low Values',
+          data: lowValues,
+          backgroundColor: 'rgba(255, 206, 86, 0.2)',
+          borderColor: 'rgba(255, 206, 86, 1)',
+          borderWidth: 1,
+          fill: false
+        }, {
+          label: 'Adj. Close Values',
           data: closeValues,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
