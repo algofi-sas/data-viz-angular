@@ -87,26 +87,35 @@
 				<div class="form-group col-md-2">
 					<label class="block-label">Limit: </label>
 					<input type="number" name="limit" ng-model="limit" min="0" class="form-control" />
-					<label class="block-label">Column Index:</label>	
-					<input type="number" name="colIndex" ng-model="colIndex" min="-1" class="form-control" />
-				</div>
-				<div class="form-group col-md-2">
+					<!-- <label class="block-label">Column Index:</label>	
+					<input type="number" name="colIndex" ng-model="colIndex" min="-1" class="form-control" /> -->
 					<label class="block-label">Order:</label>
 					<select ng-model="order" ng-options="x for x in orderOptions" class="form-control"></select>
-					<label class="block-label">Collapse:</label>
-					<select ng-model="collapse" ng-options="x for x in collapseOptions" class="form-control"></select>
 				</div>
 				<div class="form-group col-md-2">
+					
+					<label class="block-label">Collapse:</label>
+					<select ng-model="collapse" ng-options="x for x in collapseOptions" class="form-control"></select>
 					<label class="block-label"> Transformation:</label>
 					<select ng-model="transformation" ng-options="x for x in transformationOptions" class="form-control"></select>
-					<label class="block-label">&nbsp;</label>
-					<div>
-						<div class="col-md-6" id="search-btn-div">
-							<button ng-click="search()" class="btn btn-success btn-block">Search</button>
-						</div>
-						<div class="col-md-6" id="cancel-btn-div">
+				</div>
+				<div class="form-group col-md-2">
+					
+					
+					<div class="col-md-12">
+						<label class="block-label">&nbsp;</label>
+						<button ng-click="search()" class="btn btn-success btn-block">Search</button>
+					</div>
+					<div class="col-md-12">
+						<label class="block-label">&nbsp;</label>
+						<button ng-click="clear()" class="btn btn-danger btn-block">Clear</button>
+					</div>
+						<!-- <div class="col-md-6" id="search-btn-div">
+							
+						</div> -->
+						<!-- <div class="col-md-6" id="cancel-btn-div">
 							<button ng-click="clear()" class="btn btn-danger btn-block">Clear</button>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</form>
@@ -147,7 +156,7 @@
 				<thead>
 					<tr>
 						<th class="text-center">Index</th>
-						<th ng-repeat="column in requestResponse.column_names" class="text-center">
+						<th ng-repeat="column in requestResponse.column_names" class="text-center" style="white-space: nowrap;">
 						{{ column }}</th>
 					</tr>
 				</thead>
