@@ -52,10 +52,28 @@
 		cursor: pointer;
 	}
 
-/*	.nav-tabs > li > a:hover {
+	.stop-scrolling {
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.nav-tabs > li.active > a {
 		background-color: #337ab7;
 		color: #fff;
-	}*/
+		transition: background-color 0.5s ease;
+	}
+
+	.nav-tabs > li.active > a:hover {
+		transition: background-color 0.5s ease;
+		background-color: #4c91cd;
+		color: #fff;
+		cursor: pointer;
+	}
+
+	.nav-tabs>li {
+		width: 50%;
+		text-align: center;
+	}
 
 </style>
 <div ng-app="quandlTimeSeriesApp" ng-controller="quandlCtrl">

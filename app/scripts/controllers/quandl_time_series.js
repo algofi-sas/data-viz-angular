@@ -78,6 +78,9 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
   $scope.search = function() {
     $scope.clear();
     $scope.loading = true;
+
+    document.body.className = 'stop-scrolling';
+
     var params = 'api_key=' + apiKey + '&dataset_code=' + $scope.datasetCode + '&database_code=' + $scope.databaseCode + '&start_date=' + $scope.formatDate($scope.startDate) + '&end_date=' + $scope.formatDate($scope.endDate) + '&order=' + $scope.order + '&collapse=' + $scope.collapse + '&transformation=' + $scope.transformation;
 
     if ($scope.limit > 0) {
@@ -95,6 +98,8 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
         $scope.oldestAvailableDate = response.data.dataset.oldest_available_date;
         $scope.succeded = true;
         $scope.loading = false;
+
+        document.body.className = '';
 
         var labels = [];
         var openValues = [];
