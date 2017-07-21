@@ -291,27 +291,29 @@
 			<br />
 			<hr />
 			<h2 class="text-center">Table Results</h2>
-			<table id="myTable" class="table table-hover table-bordered text-center">
-				<thead>
-					<tr>
-						<th class="text-center">Index</th>
-						<th ng-repeat="column in requestResponse.column_names" class="text-center" style="white-space: nowrap;">
-						{{ column }}</th>
+			<div style="overflow-x:auto;">
+				<table id="myTable" class="table table-hover table-bordered text-center">
+					<thead>
+						<tr>
+							<th class="text-center">Index</th>
+							<th ng-repeat="column in requestResponse.column_names" class="text-center" style="white-space: nowrap;">
+							{{ column }}</th>
+						</tr>
+					</thead>
+					<tr ng-repeat="dataElement in requestResponse.data">
+						<td><b>{{ $index+1 }}</b></td>
+						<td ng-repeat="dataCol in dataElement track by $index" style="white-space: nowrap;">
+						{{ dataCol | formatData }}</td>
 					</tr>
-				</thead>
-				<tr ng-repeat="dataElement in requestResponse.data">
-					<td><b>{{ $index+1 }}</b></td>
-					<td ng-repeat="dataCol in dataElement track by $index" style="white-space: nowrap;">
-					{{ dataCol | formatData }}</td>
-				</tr>
-				<thead>
-					<tr>
-						<th class="text-center">Total</th>
-						<th colspan="{{requestResponse.column_names.length}}" class="text-center">
-						{{ requestResponse.data.length }}</th>
-					</tr>
-				</thead>
-			</table>
+					<thead>
+						<tr>
+							<th class="text-center">Total</th>
+							<th colspan="{{requestResponse.column_names.length}}" class="text-center">
+							{{ requestResponse.data.length }}</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
