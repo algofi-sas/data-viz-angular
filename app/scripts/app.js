@@ -47,6 +47,12 @@ myApp
         controllerAs: 'quandl',
         title: 'Quandl Time Series'
       })
+      .when('/bitcoin_markets', {
+        templateUrl: 'views/bitcoin_markets.html',
+        controller: 'bitcoinMarketCtrl',
+        controllerAs: 'bitcoin_markets',
+        title: 'Bitcoin Markets'
+      })
       .otherwise({
         redirectTo: '/'
       });

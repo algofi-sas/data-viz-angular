@@ -16,7 +16,7 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
       }
     }
   };
-}).controller('quandlCtrl', function($scope, $http, ENV, $route) {
+}).controller('quandlCtrl', function($scope, $http, ENV) {
 
   $scope.collapseOptions = ['none', 'daily', 'weekly', 'monthly', 'quarterly', 'annual'];
 
