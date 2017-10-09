@@ -434,7 +434,7 @@ module.exports = function (grunt) {
         options: {
           frameworks: ['jasmine'],
           singleRun: true,
-          browsers: ['PhantomJS']
+          browsers: ['Chrome']
         }
       }
     },
