@@ -118,9 +118,6 @@ angular.module('myFirstAppApp').filter('formatData', function(numberFilter) {
           highValues.push($scope.requestResponse.data[i][2]);
           lowValues.push($scope.requestResponse.data[i][3]);
           closeValues.push($scope.requestResponse.data[i][4]);
-        }
-
-        for (var i = 0; i < $scope.requestResponse.data.length; i++) {
           openValuesAdj.push($scope.requestResponse.data[i][8]);
           highValuesAdj.push($scope.requestResponse.data[i][9]);
           lowValuesAdj.push($scope.requestResponse.data[i][10]);

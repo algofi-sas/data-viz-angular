@@ -53,6 +53,12 @@ myApp
         controllerAs: 'bitcoin_markets',
         title: 'Bitcoin Markets'
       })
+      .when('/portfolio_visualizer', {
+        templateUrl: 'views/portfolio_visualizer.html',
+        controller: 'portfolioVisualizerCtrl',
+        controllerAs: 'portfolio_visualizer',
+        title: 'Portfolio Visualizer'
+      })
       .otherwise({
         redirectTo: '/'
       });

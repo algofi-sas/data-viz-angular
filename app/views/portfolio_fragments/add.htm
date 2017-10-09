@@ -1,0 +1,82 @@
+<form>
+  <h2>Portfolio</h2>
+  <div class="form-group">
+    <label for="txtPortfolioName">Portfolio Name</label>
+    <input type="test" class="form-control" id="txtPortfolioName" placeholder="Name">
+  </div>
+  <!-- <hr> -->
+  <!-- startDate, endDate, weight, data, name, code -->
+  <h2>Assets</h2>
+  <div class="form-group row">
+    <div class="col-md-4">
+      <label for="txtAssetName">Asset Name</label>
+      <input type="text" class="form-control" id="txtAssetName" placeholder="Asset Name" ng-model="$parent.assetName">
+    </div>
+    <div class="col-md-4">
+      <label for="txtAssetCode">Code</label>
+      <input type="text" class="form-control" id="txtAssetCode" placeholder="Asset Code" ng-model="$parent.assetCode">
+    </div>
+    <div class="col-md-4">
+      <label for="txtAssetWeigth">Weigth</label>
+      <input type="number" min="0" max="100" step="0.01" class="form-control" id="txtAssetWeigth" placeholder="Asset Weigth" ng-model="$parent.assetWeigth">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-4">
+      <label for="txtStartDate">Start Date</label>
+      <input type="date" class="form-control" id="txtStartDate" placeholder="Start Date" ng-model="$parent.assetStartDate">
+    </div>
+    <div class="col-md-4">
+      <label for="txtEndDate">End Date</label>
+      <input type="date" class="form-control" id="txtEndDate" placeholder="End Date" ng-model="$parent.assetEndDate">
+    </div>
+    <div class="col-md-4">
+      <label>&nbsp;</label>
+      <button class="btn btn-success btn-block" ng-click="addAssetToPortfolio()">Add Asset</button>
+    </div>
+  </div>
+</form>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Weight</th>
+        <!-- <th>Table heading</th>
+        <th>Table heading</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+<!--         <td>Table cell</td>
+        <td>Table cell</td> -->
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+<!--         <td>Table cell</td>
+        <td>Table cell</td> -->
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+        <td>Table cell</td>
+<!--         <td>Table cell</td>
+        <td>Table cell</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
