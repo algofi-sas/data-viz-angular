@@ -23,7 +23,7 @@ angular.module('myFirstAppApp')
 
 		return day + '-' + (monthIndex + 1) + '-' + year;
 	};
-
+/*
 	class AssetData {
 
 		constructor(date, open, high, low, close, volume, adjClose, previousAssetData) {
@@ -140,7 +140,7 @@ angular.module('myFirstAppApp')
 	$scope.endDate = new Date('2017-01-03');
 
 	$scope.assetDataList = [];
-
+*/
 	function search() {
 		
 		
